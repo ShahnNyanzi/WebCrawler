@@ -1,12 +1,12 @@
 const axios=require("axios");
 const xml2js=require("xml2js");
-const MediumUsername="towards-data-science";
+const MediumUsername="better-programming";
 const RssfeedUrl=`https://medium.com/feed/${MediumUsername}`;
 
 async function crawlMediumArticles(){
     console.log(`RSSfeed url: ${RssfeedUrl}`);
     try{
-        // const response=await axios.get(RssfeedUrl);
+        
          
         const response=await axios.get(RssfeedUrl,{
             headers:{
@@ -16,9 +16,9 @@ async function crawlMediumArticles(){
 
        const xmlData=response.data;
         const parser=new xml2js.Parser({explicitArray:false});
-        const result=await parser.parseStringPromise(xmlData);
+        const convertedData=await parser.parseStringPromise(xmlData);
 
-        const articles=result.rss.channel.item || [];
+        const articles=convertedData.rss.channel.item || [];
 
         const extractedarticles=articles.map(item=>({
             title:item.title,
